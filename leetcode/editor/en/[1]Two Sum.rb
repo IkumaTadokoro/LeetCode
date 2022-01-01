@@ -49,15 +49,13 @@
 # @param {Integer} target
 # @return {Integer[]}
 def two_sum(nums, target)
-  hashmap = {}
+  hash_map = {}
 
-  (0..nums.size - 1).to_a.each do |indices|
-    num = nums[indices]
+  nums.each_with_index do |num, index|
     complement = target - num
+    return [hash_map[num], index] unless hash_map[num].nil?
 
-    return [hashmap[num], indices] if hashmap.key?(num)
-
-    hashmap[complement] = indices
+    hash_map[complement] = index
   end
 end
 #leetcode submit region end(Prohibit modification and deletion)
