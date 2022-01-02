@@ -48,9 +48,10 @@
 # @param {Integer} x
 # @return {Boolean}
 def is_palindrome(x)
-  x_to_s = x.to_s
-  middle_index = (x_to_s.length / 2.0 - 1).ceil
-  (0..middle_index).to_a.map { |index| x_to_s[index] == x_to_s[x_to_s.length - index - 1] }.all?
+  return false if x.negative?
+  return true if x.digits.uniq.count == 1
+
+  x.to_s == x.to_s.reverse
 end
 #leetcode submit region end(Prohibit modification and deletion)
 
