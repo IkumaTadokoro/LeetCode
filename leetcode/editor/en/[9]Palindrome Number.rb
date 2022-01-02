@@ -48,11 +48,14 @@
 # @param {Integer} x
 # @return {Boolean}
 def is_palindrome(x)
-  return false if x.negative?
-  return true if x.digits.uniq.count == 1
+  return false if x.negative? || ((x % 10).zero? && x != 0)
 
-  x.to_s == x.to_s.reverse
+  reverted_number = 0
+  while x > reverted_number
+    reverted_number = reverted_number * 10 + x % 10
+    x /= 10
+  end
+
+  x == reverted_number || x == reverted_number / 10
 end
 #leetcode submit region end(Prohibit modification and deletion)
-
-is_palindrome(121)
