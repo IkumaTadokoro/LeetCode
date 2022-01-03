@@ -44,23 +44,16 @@
 # @param {String} s
 # @return {Boolean}
 def is_valid(s)
+  return false if s.empty? || s.length.odd?
+
   brackets = { '(' => ')', '{' => '}', '[' => ']' }
-  search_targets = []
+  stack = []
 
-  s.chars.each do |bracket|
-    if brackets.key?(bracket)
-      search_targets.unshift brackets[bracket]
-      next
-    end
-
-    if bracket == search_targets.first
-      search_targets.shift
-    else
-      search_targets.unshift brackets[bracket]
-      break
-    end
+  s.each_char do |bracket|
+    next stack << bracket if brackets.key?(bracket)
+    return false unless brackets[stack.pop] == bracket
   end
 
-  search_targets.empty?
+  stack.empty?
 end
 #leetcode submit region end(Prohibit modification and deletion)
