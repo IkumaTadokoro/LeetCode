@@ -53,22 +53,18 @@
 # @param {ListNode} l2
 # @return {ListNode}
 
-def build_number(list_node, index = 0, number = 0)
-  number += list_node.val * 10**index
-  return number if list_node.next.nil?
-
-  build_number(list_node.next, index + 1, number)
-end
-
-def build_list_node(number)
-  return ListNode.new(number) if number < 10
-
-  ListNode.new(number % 10, build_list_node(number / 10))
-end
-
 def add_two_numbers(l1, l2)
-  l1_num = build_number(l1)
-  l2_num = build_number(l2)
-  build_list_node(l1_num + l2_num)
+  dummy_head = current = ListNode.new(0)
+  p, q = l1, l2
+  carry = 0
+  until p.nil? && q.nil?
+    sum = carry + (p.nil? ? 0 : p.val) + (q.nil? ? 0 : q.val)
+    carry = sum / 10
+    current = current.next = ListNode.new(sum % 10)
+    p, q = p&.next, q&.next
+  end
+
+  current.next = ListNode.new(carry) if carry.positive?
+  dummy_head.next
 end
 #leetcode submit region end(Prohibit modification and deletion)
