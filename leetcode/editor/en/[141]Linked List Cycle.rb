@@ -64,15 +64,12 @@
 def hasCycle(head)
   return false if head.nil?
 
-  # 初期化処理
-  hash_table = {}
-  hash_table[head] = true
+  slow, fast = head, head
 
-  while head
-    head = head.next
-    return true if head && hash_table[head] # 遭遇済であればtrue
-
-    hash_table[head] = true if head # ハッシュテーブルに記録する
+  while fast&.next
+    slow = slow.next
+    fast = fast.next.next
+    return true if slow == fast
   end
 
   false
