@@ -52,10 +52,9 @@ def two_sum(nums, target)
   hash_map = {}
 
   nums.each_with_index do |num, index|
-    complement = target - num
     return [hash_map[num], index] unless hash_map[num].nil?
 
-    hash_map[complement] = index
+    hash_map[target - num] = index
   end
 end
 #leetcode submit region end(Prohibit modification and deletion)
